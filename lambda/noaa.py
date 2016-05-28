@@ -15,6 +15,8 @@ class Noaa(object):
     
     DICT = {
         'kt': 'knots',
+        r'\bNAM\b': 'model',
+        r'\b([0-9]+)Z\b': r'\1' + " o'clock",
         r'\n': ' ',
         r'&&': '',
         r'\.\.\.': ': '         # handle pauses correctly

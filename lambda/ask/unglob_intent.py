@@ -1,5 +1,6 @@
 import sys
 import re
+import collections
 
 class Unglobber(object):
 
@@ -21,7 +22,11 @@ class Unglobber(object):
                 self.unglobbed += Unglobber(prefix+choice+suffix).unglob()
         return self.unglobbed
 
-out = sys.stdout
+def check_dups(ary):
+    utterances = map(lambda elt: re.sub(r'^\S+\s+', '', elt), ary)
+    return [x for x,count in collections.Counter(utterances).items() if count > 1]
+
+out = []
 with open(sys.argv[1]) as f:
     for line in f:
         if re.match(r'\A\s*\Z', line):
@@ -29,4 +34,11 @@ with open(sys.argv[1]) as f:
             continue
         unglobber = Unglobber(line)
         unglobber.unglob()
-        out.write("\n".join(unglobber.unglobbed) + "\n")
+        out += unglobber.unglobbed
+
+# check for dups
+dups = check_dups(out)
+if not dups:
+    sys.stdout.write("\n".join(out) + "\n")
+else:
+    sys.stderr.write("Error: Duplicate utterances:\n{}\n".format("\n".join(dups)))
