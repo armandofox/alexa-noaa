@@ -1,4 +1,4 @@
-DiscussionIntent (todays|the) (weather|) discussion
+DiscussionIntent (todays|the) (weather|discussion|weather discussion)
 SynopsisIntent  (todays|the) (weather|) synopsis
 CompleteIntent  (todays|the) (weather|) discussion and synopsis
 CompleteIntent  (todays|the) (weather|) synopsis and discussion

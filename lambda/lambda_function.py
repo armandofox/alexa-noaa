@@ -35,8 +35,19 @@ def session_ended_request_handler(request):
 
 @alexa.intent_handler("DiscussionIntent")
 def discussion_intent_handler(request):
+    return results_for_afd(HOME_STATION, 'Discussion')
+
+@alexa.intent_handler("SynopsisIntent")
+def synopsis_intent_handler(request):
+    return results_for_afd(HOME_STATION, 'Synopsis')
+
+# ---- helper functions ----
+
+def results_for_afd(station_name, report_component):
     report = Noaa()
-    station= self.HOME_STATION
+    station= HOME_STATION
+    component = report_component.upper()
+
     report.get_afd_for(station)
 
     if report.error:
@@ -44,8 +55,7 @@ def discussion_intent_handler(request):
         content = 'Sorry. {}'.format(report.error)
     else:
         card_title = 'activated'
-        content = report.sections['DISCUSSION']
+        content = report.sections[component]
     
-    card = alexa.create_card(title = 'DiscussionIntent {}'.format(card_title),  subtitle='Station: {}'.format(station), content=content)
+    card = alexa.create_card(title = '{}Intent {}'.format(component,card_title),  subtitle='Station: {}'.format(station), content=content)
     return alexa.create_response(content, end_session=True, card_obj = card)
-
