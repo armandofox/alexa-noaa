@@ -1,0 +1,10 @@
+{
+  "intents": [
+    { "intent": "DiscussionIntent" },
+    { "intent": "SynopsisIntent" },
+    { "intent": "CompleteIntent" },
+    { "intent": "AMAZON.StopIntent" },
+    { "intent": "AMAZON.CancelIntent" }
+  ]
+}
+

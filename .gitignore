@@ -1,0 +1,7 @@
+#Ignore keys (Essential!)
+keys/*
+*.zip
+*.pyc
+*/*.pyc
+!keys/README
+skill/utterances.txt
